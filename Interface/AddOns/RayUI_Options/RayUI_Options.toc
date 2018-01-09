@@ -19,3 +19,4 @@ skins.lua
 misc.lua
 nameplates.lua
 combattext.lua
+minimap.lua

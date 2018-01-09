@@ -2,4 +2,5 @@
 	<Script file="minimap.lua"/>
 	<Script file="worldmap.lua"/>
 	<Script file="buttoncollector.lua"/>
+	<Script file="compat.lua"/>
 </Ui>

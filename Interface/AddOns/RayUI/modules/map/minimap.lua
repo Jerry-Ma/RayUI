@@ -347,6 +347,9 @@ function MM:Minimap_OnMouseWheel(d)
 end
 
 function MM:Initialize()
+    if not self.db.enable then
+        return
+    end
     self:SkinMiniMap()
     self:CreateMenu()
     self:ButtonCollector()
