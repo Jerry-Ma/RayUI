@@ -131,6 +131,12 @@ R.Options.args = {
                     R:TestBossButton()
                 end,
             },
+            logo = {
+                order = 9,
+                type = "toggle",
+                name = L["启用"] .. "Welcome Logo",
+                desc = L["启用"] .. "Welcome Logo",
+            },
         },
     },
     media = {
