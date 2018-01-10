@@ -13,8 +13,23 @@ end
 
 local function OnShowExpBarWithoutMiniMap(self)
     width = Minimap:GetWidth()
-    self:SetPoint("TOPLEFT", AurasHolder, "TOPRIGHT", - width, 40)
-    self:SetPoint("TOPRIGHT", AurasHolder, "TOPRIGHT", 0, 40)
+    self:SetPoint("TOPLEFT", R.UIParent, "TOPLEFT", 10, -20)
+    self:SetPoint("TOPRIGHT", R.UIParent, "TOPLEFT", 10 + width, -20)
+end
+
+local function UseCarbiniteLayout(use)
+    if use then
+        -- additional settings for the button dock if enable
+        Nx.db.profile.WinSettings.NxMapDock['X'] = 0
+        Nx.db.profile.WinSettings.NxMapDock['Y'] = 60
+        Nx.db.profile.WinSettings.NxMap1['X'] = 45
+        Nx.db.profile.WinSettings.NxMap1['Y'] = 40
+    else
+        Nx.db.profile.WinSettings.NxMapDock['X'] = Nx.db.profile.WinSettings.NxMapDock['_X']
+        Nx.db.profile.WinSettings.NxMapDock['Y'] = Nx.db.profile.WinSettings.NxMapDock['_Y']
+        Nx.db.profile.WinSettings.NxMap1['X'] = Nx.db.profile.WinSettings.NxMap1['_X']
+        Nx.db.profile.WinSettings.NxMap1['Y'] = Nx.db.profile.WinSettings.NxMap1['_Y']
+    end
 end
 
 if Nx == nil then
@@ -29,24 +44,32 @@ else
         if not self.db.enable then
             R:Print("MiniMap module is disabled because Carbonite minimap integration is enabled.")
         end
+        UseCarbiniteLayout(not self.db.enable)
     end)
-    -- deal with the expbar to act with respect to the minimap
-    -- minimap module is initialized later so we need to make this a hook
-    hooksecurefunc(R, 'InitializeModules', function(self)
-        EB = R:GetModule("Misc"):GetModule("Exprepbar")
-        R:Print(MiniMap)
-        R:Print(RayUIExpBar)
-        MM:RawHookScript(RayUIExpBar, 'OnShow', OnShowExpBarWithoutMiniMap)
-        -- need this to make it apear at correct position
-        OnShowExpBarWithoutMiniMap(RayUIExpBar)
+    -- deal with the expbar
+    -- misc module is initialized later so we need to make this a hook
+    MM:SecureHook(R, 'InitializeModules', function(self)
+        if MM.db.enable then
+            MM:Unhook(RayUIExpBar, 'OnShow')
+            RayUIExpBar:Hide()
+            RayUIExpBar:Show()
+        else
+            MM:RawHookScript(RayUIExpBar, 'OnShow', OnShowExpBarWithoutMiniMap)
+            -- need this to make it apear at correct position
+            OnShowExpBarWithoutMiniMap(RayUIExpBar)
+        end
     end)
 end
 
+
 function MM:Compat_UseCarboniteMap(use, reload)
-    -- fire up the Nx mmown change
     -- copied from Nx.Opts.mapConfig of Carbonite 7.3
     Nx.db.profile.MiniMap.Own = use
+    Nx.db.profile.MiniMap.ButOwn = use  -- button collector
+    -- finish up the setting
     MM:Compat_NXCmdMMOwnChangeNoReload(_,Nx.db.profile.MiniMap.Own)
+    -- setup positioning
+    UseCarbiniteLayout(use)
     if reload then
         if use then
             StaticPopup_Show('COMPAT_USECARBONITEMAP_RELOAD')
@@ -78,7 +101,9 @@ StaticPopupDialogs["COMPAT_USECARBONITEMAP_RELOAD"] = {
     text = "Enabling this will disable RayUI minimap module, proceed?",
     button1 = ACCEPT,
     button2 = CANCEL,
-    OnAccept = function() ReloadUI() end,
+    OnAccept = function()
+        ReloadUI()
+    end,
     timeout = 0,
     whileDead = 1,
 }
@@ -87,7 +112,12 @@ StaticPopupDialogs["COMPAT_NOTUSECARBONITEMAP_RELOAD"] = {
     text = "Disabling this will disable Carbonite MiniMap integration, proceed?",
     button1 = ACCEPT,
     button2 = CANCEL,
-    OnAccept = function() ReloadUI() end,
+    OnAccept = function()
+        -- reset dock if disable
+        win = Nx.Window:Find("NxMapDock")
+        win:ResetLayout()
+        ReloadUI()
+    end,
     timeout = 0,
     whileDead = 1,
 }

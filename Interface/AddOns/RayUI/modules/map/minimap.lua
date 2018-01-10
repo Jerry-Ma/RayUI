@@ -348,6 +348,9 @@ end
 
 function MM:Initialize()
     if not self.db.enable then
+        -- free the bauderrorframe button from the minimap
+        MM:RawHook("BaudErrorFrameMinimapButton_OnUpdate", function(self)
+        end)
         return
     end
     self:SkinMiniMap()
