@@ -51,13 +51,7 @@ function mod:CreateBar(name, anchorFrame, height)
 end
 
 function mod:CreateExpBar()
-    if R.db.MiniMap.enable then
-        self.ExpBar = self:CreateBar("RayUIExpBar", Minimap, 8)
-    else
-        self.ExpBar = self:CreateBar("RayUIExpBar", R.UIParent, 8)
-        self.ExpBar:SetPoint("TOPLEFT", self.anchorFrame, "TOPRIGHT", 0, 0)
-        self.ExpBar.SetWidth(Minimap:GetWidth() * 2)
-    end
+    self.ExpBar = self:CreateBar("RayUIExpBar", Minimap, 8)
     self.ExpBar:SetStatusBarColor(.5, 0, .75)
     R:SetStatusBarGradient(self.ExpBar)
     self.ExpBar:SetAnimatedTextureColors(0.0, 0.39, 0.88, 1.0)

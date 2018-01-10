@@ -7,6 +7,16 @@ RayUI:LoadEnv("MiniMap")
 local MM = _MiniMap
 local Nx = Nx
 
+function MM:Compat_IsUseCarboniteMap()
+    return Nx.db.profile.MiniMap.Own
+end
+
+local function OnShowExpBarWithoutMiniMap(self)
+    width = Minimap:GetWidth()
+    self:SetPoint("TOPLEFT", AurasHolder, "TOPRIGHT", - width, 40)
+    self:SetPoint("TOPRIGHT", AurasHolder, "TOPRIGHT", 0, 40)
+end
+
 if Nx == nil then
     MM:Hook(MM, 'Initialize', function(self)
         -- restore MM.db.enable
@@ -20,10 +30,16 @@ else
             R:Print("MiniMap module is disabled because Carbonite minimap integration is enabled.")
         end
     end)
-end
-
-function MM:Compat_IsUseCarboniteMap()
-    return Nx.db.profile.MiniMap.Own
+    -- deal with the expbar to act with respect to the minimap
+    -- minimap module is initialized later so we need to make this a hook
+    hooksecurefunc(R, 'InitializeModules', function(self)
+        EB = R:GetModule("Misc"):GetModule("Exprepbar")
+        R:Print(MiniMap)
+        R:Print(RayUIExpBar)
+        MM:RawHookScript(RayUIExpBar, 'OnShow', OnShowExpBarWithoutMiniMap)
+        -- need this to make it apear at correct position
+        OnShowExpBarWithoutMiniMap(RayUIExpBar)
+    end)
 end
 
 function MM:Compat_UseCarboniteMap(use, reload)
