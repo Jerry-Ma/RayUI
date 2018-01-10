@@ -20,15 +20,24 @@ end
 local function UseCarbiniteLayout(use)
     if use then
         -- additional settings for the button dock if enable
+        if Nx.db.profile.WinSettings.NxMapDock == nil then
+            Nx.db.profile.WinSettings.NxMapDock = {}
+        end
+        if Nx.db.profile.WinSettings.NxMap1 == nil then
+            Nx.db.profile.WinSettings.NxMap1 = {}
+        end
         Nx.db.profile.WinSettings.NxMapDock['X'] = 0
         Nx.db.profile.WinSettings.NxMapDock['Y'] = 60
         Nx.db.profile.WinSettings.NxMap1['X'] = 45
         Nx.db.profile.WinSettings.NxMap1['Y'] = 40
     else
-        Nx.db.profile.WinSettings.NxMapDock['X'] = Nx.db.profile.WinSettings.NxMapDock['_X']
-        Nx.db.profile.WinSettings.NxMapDock['Y'] = Nx.db.profile.WinSettings.NxMapDock['_Y']
-        Nx.db.profile.WinSettings.NxMap1['X'] = Nx.db.profile.WinSettings.NxMap1['_X']
-        Nx.db.profile.WinSettings.NxMap1['Y'] = Nx.db.profile.WinSettings.NxMap1['_Y']
+        -- here we just ignore if this fails
+        if pcall(function()
+            Nx.db.profile.WinSettings.NxMapDock['X'] = Nx.db.profile.WinSettings.NxMapDock['_X']
+            Nx.db.profile.WinSettings.NxMapDock['Y'] = Nx.db.profile.WinSettings.NxMapDock['_Y']
+            Nx.db.profile.WinSettings.NxMap1['X'] = Nx.db.profile.WinSettings.NxMap1['_X']
+            Nx.db.profile.WinSettings.NxMap1['Y'] = Nx.db.profile.WinSettings.NxMap1['_Y']
+        end) then else end
     end
 end
 
