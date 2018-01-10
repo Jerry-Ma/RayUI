@@ -101,9 +101,7 @@ StaticPopupDialogs["COMPAT_USECARBONITEMAP_RELOAD"] = {
     text = "Enabling this will disable RayUI minimap module, proceed?",
     button1 = ACCEPT,
     button2 = CANCEL,
-    OnAccept = function()
-        ReloadUI()
-    end,
+    OnAccept = function() ReloadUI() end,
     timeout = 0,
     whileDead = 1,
 }
@@ -112,12 +110,7 @@ StaticPopupDialogs["COMPAT_NOTUSECARBONITEMAP_RELOAD"] = {
     text = "Disabling this will disable Carbonite MiniMap integration, proceed?",
     button1 = ACCEPT,
     button2 = CANCEL,
-    OnAccept = function()
-        -- reset dock if disable
-        win = Nx.Window:Find("NxMapDock")
-        win:ResetLayout()
-        ReloadUI()
-    end,
+    OnAccept = function() ReloadUI() end,
     timeout = 0,
     whileDead = 1,
 }
