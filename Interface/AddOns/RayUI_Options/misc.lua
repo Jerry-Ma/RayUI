@@ -38,8 +38,12 @@ R.Options.args.Misc = {
             type = "group",
             name = L["冷却条"],
             guiInline = true,
-            get = function(info) return R.db.Misc.cooldowns[ info[#info] ] end,
-            set = function(info, value) R.db.Misc.cooldowns[ info[#info] ] = value StaticPopup_Show("CFG_RELOAD") end,
+            get = function(info)
+                return R.db.Misc.cooldowns[ info[#info] ]
+            end,
+            set = function(info, value)
+                R.db.Misc.cooldowns[ info[#info] ] = value StaticPopup_Show("CFG_RELOAD")
+            end,
             args = {
                 enable = {
                     order = 1,
@@ -56,26 +60,34 @@ R.Options.args.Misc = {
                     order = 3,
                     type = "toggle",
                     name = L["显示宠物技能冷却"],
-                    hidden = function() return not R.db.Misc.cooldowns.enable end,
+                    hidden = function()
+                        return not R.db.Misc.cooldowns.enable
+                    end,
                 },
                 showequip = {
                     order = 4,
                     type = "toggle",
                     name = L["显示装备冷却"],
-                    hidden = function() return not R.db.Misc.cooldowns.enable end,
+                    hidden = function()
+                        return not R.db.Misc.cooldowns.enable
+                    end,
                 },
                 showbags = {
                     order = 5,
                     type = "toggle",
                     name = L["显示物品冷却"],
-                    hidden = function() return not R.db.Misc.cooldowns.enable end,
+                    hidden = function()
+                        return not R.db.Misc.cooldowns.enable
+                    end,
                 },
                 size = {
                     order = 6,
                     type = "range",
                     name = L["按键大小"],
                     min = 24, max = 60, step = 1,
-                    hidden = function() return not R.db.Misc.cooldowns.enable end,
+                    hidden = function()
+                        return not R.db.Misc.cooldowns.enable
+                    end,
                 },
                 growthx = {
                     order = 7,
@@ -85,7 +97,9 @@ R.Options.args.Misc = {
                         ["LEFT"] = L["左"],
                         ["RIGHT"] = L["右"],
                     },
-                    hidden = function() return not R.db.Misc.cooldowns.enable end,
+                    hidden = function()
+                        return not R.db.Misc.cooldowns.enable
+                    end,
                 },
                 growthy = {
                     order = 8,
@@ -95,7 +109,9 @@ R.Options.args.Misc = {
                         ["UP"] = L["上"],
                         ["DOWN"] = L["下"],
                     },
-                    hidden = function() return not R.db.Misc.cooldowns.enable end,
+                    hidden = function()
+                        return not R.db.Misc.cooldowns.enable
+                    end,
                 },
             },
         },
@@ -191,7 +207,9 @@ R.Options.args.Misc = {
                     order = 2,
                     name = L["自动交接任务"],
                     desc = L["自动交接任务，按shift点npc则不自动交接"],
-                    disabled = function() return not M.db.quest end,
+                    disabled = function()
+                        return not M.db.quest
+                    end,
                     type = "toggle",
                     set = function(info, value)
                         R.db.Misc.automation = value
@@ -234,28 +252,38 @@ R.Options.args.Misc = {
             type = "group",
             name = L["图腾条"],
             guiInline = true,
-            get = function(info) return R.db.Misc.totembar[ info[#info] ] end,
-            set = function(info, value) R.db.Misc.totembar[ info[#info] ] = value; M:GetModule("TotemBar"):PositionAndSizeTotem() end,
+            get = function(info)
+                return R.db.Misc.totembar[ info[#info] ]
+            end,
+            set = function(info, value)
+                R.db.Misc.totembar[ info[#info] ] = value; M:GetModule("TotemBar"):PositionAndSizeTotem()
+            end,
             args = {
                 enable = {
                     order = 1,
                     type = "toggle",
                     name = L["启用"],
-                    set = function(info, value) R.db.Misc.totembar[ info[#info] ] = value; M:GetModule("TotemBar"):ToggleTotemEnable() end,
+                    set = function(info, value)
+                        R.db.Misc.totembar[ info[#info] ] = value; M:GetModule("TotemBar"):ToggleTotemEnable()
+                    end,
                 },
                 size = {
                     order = 2,
                     type = "range",
                     name = L["按键大小"],
                     min = 24, max = 60, step = 1,
-                    hidden = function() return not R.db.Misc.totembar.enable end,
+                    hidden = function()
+                        return not R.db.Misc.totembar.enable
+                    end,
                 },
                 spacing = {
                     order = 3,
                     type = "range",
                     name = L["按键间距"],
                     min = 1, max = 10, step = 1,
-                    hidden = function() return not R.db.Misc.totembar.enable end,
+                    hidden = function()
+                        return not R.db.Misc.totembar.enable
+                    end,
                 },
                 sortDirection = {
                     order = 4,
@@ -265,7 +293,9 @@ R.Options.args.Misc = {
                         ["ASCENDING"] = L["正向"],
                         ["DESCENDING"] = L["逆向"],
                     },
-                    hidden = function() return not R.db.Misc.totembar.enable end,
+                    hidden = function()
+                        return not R.db.Misc.totembar.enable
+                    end,
                 },
                 growthDirection = {
                     order = 5,
@@ -275,7 +305,9 @@ R.Options.args.Misc = {
                         ["VERTICAL"] = L["垂直"],
                         ["HORIZONTAL"] = L["水平"],
                     },
-                    hidden = function() return not R.db.Misc.totembar.enable end,
+                    hidden = function()
+                        return not R.db.Misc.totembar.enable
+                    end,
                 },
             },
         },
