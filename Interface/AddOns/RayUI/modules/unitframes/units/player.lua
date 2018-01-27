@@ -48,7 +48,8 @@ function UF:Construct_PlayerFrame(frame, unit)
         frame.Portrait = self:Construct_Portrait(frame)
     end
 
-    if self.db.castBar then
+    if false then
+    -- if self.db.castBar then
         local castbar = self:Construct_CastBar(frame)
         castbar:ClearAllPoints()
         castbar:Point("BOTTOM", R.UIParent, "BOTTOM", 0, 305)

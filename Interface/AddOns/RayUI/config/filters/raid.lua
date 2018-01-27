@@ -4,9 +4,14 @@
 RayUI:LoadEnv("Raid")
 
 
-local function ClassBuff(id, point, color, anyUnit, onlyShowMissing)
+local function ClassBuff(id, point, color, anyUnit, onlyShowMissing, cdColor)
     local r, g, b = unpack(color)
-    return {["enabled"] = true, ["id"] = id, ["point"] = point, ["color"] = {["r"] = r, ["g"] = g, ["b"] = b}, ["anyUnit"] = anyUnit, ["onlyShowMissing"] = onlyShowMissing}
+    local cdc = nil
+    if cdColor then
+        local cr, cg, cb = unpack(cdColor)
+        cdc = {["r"] = cr, ["g"] = cg, ["b"] = cb}
+    end
+    return {["enabled"] = true, ["id"] = id, ["point"] = point, ["color"] = {["r"] = r, ["g"] = g, ["b"] = b}, ["anyUnit"] = anyUnit, ["onlyShowMissing"] = onlyShowMissing, ["cdColor"] = cdc}
 end
 
 local function SpellName(id)

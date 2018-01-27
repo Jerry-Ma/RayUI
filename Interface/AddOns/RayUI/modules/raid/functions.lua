@@ -339,6 +339,11 @@ function RA:ConfigureAuraWatch(frame)
                     icon.cd:SetAllPoints(icon)
                     icon.cd:SetReverse(true)
                     icon.cd:SetDrawEdge(true)
+                    -- icon.cd:SetDrawSwipe(true)
+                    if spell['cdColor'] then
+                        icon.cd:SetSwipeTexture(R["media"].blank)
+                        icon.cd:SetSwipeColor(spell["cdColor"].r, spell["cdColor"].g, spell["cdColor"].b, 1);
+                    end
                     icon.cd:SetFrameLevel(icon:GetFrameLevel())
                 end
 
@@ -458,7 +463,7 @@ end
 
 function RA:UpdateTargetBorder()
     if UnitIsUnit("target", self.unit) then
-        self.Health.border:SetBackdropBorderColor(.8, .8, .8, 1)
+        self.Health.border:SetBackdropBorderColor(.9, .9, .9, 1)
     else
         self.Health.border:SetBackdropBorderColor(0, 0, 0, 1)
     end
@@ -504,7 +509,7 @@ function RA:Construct_NameText(frame)
     local name = frame.RaisedElementParent:CreateFontString(nil, "ARTKWORK")
     name:SetPoint("CENTER", frame.Health, 0, 2)
     name:SetJustifyH("CENTER")
-    name:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)
+    name:SetFont(R["media"].font, R["media"].fontsize - 5, R["media"].fontflag)
     name:SetPoint("LEFT")
     name:SetPoint("RIGHT")
     name.overrideUnit = true
@@ -533,7 +538,7 @@ function RA:Construct_HealText(frame)
     local healtext = frame.RaisedElementParent:CreateFontString(nil, "ARTKWORK")
     healtext:SetPoint("BOTTOM", frame.Health)
     healtext:SetShadowOffset(1.25, -1.25)
-    healtext:SetFont(R["media"].font, R["media"].fontsize - 2, R["media"].fontflag)
+    healtext:SetFont(R["media"].font, R["media"].fontsize - 4, R["media"].fontflag)
     healtext:SetPoint("LEFT")
     healtext:SetPoint("RIGHT")
     frame:Tag(healtext, "[RayUIRaid:stat]")
@@ -589,7 +594,7 @@ function RA:Construct_AFKText(frame)
     local afktext = frame.RaisedElementParent:CreateFontString(nil, "OVERLAY")
     afktext:SetPoint("TOP", frame, "TOP")
     afktext:SetShadowOffset(1.25, -1.25)
-    afktext:SetFont(R["media"].font, R["media"].fontsize - 2, R["media"].fontflag)
+    afktext:SetFont(R["media"].font, R["media"].fontsize - 4, R["media"].fontflag)
     afktext:SetPoint("LEFT", frame, "LEFT")
     afktext:SetPoint("RIGHT", frame, "RIGHT")
     afktext.frequentUpdates = 1

@@ -125,7 +125,7 @@ function WM:Initialize()
     CoordsHolder.mouseCoords:SetFontObject(NumberFontNormal)
     CoordsHolder.playerCoords:SetText(PLAYER..": 0, 0")
     CoordsHolder.mouseCoords:SetText(MOUSE_LABEL..": 0, 0")
-    CoordsHolder.playerCoords:SetPoint("BOTTOMLEFT", CoordsHolder, "BOTTOMLEFT")
+    CoordsHolder.playerCoords:SetPoint("BOTTOMLEFT", CoordsHolder, "BOTTOMLEFT", 0, 30)
     CoordsHolder.mouseCoords:SetPoint("BOTTOMLEFT", CoordsHolder.playerCoords, "TOPLEFT")
 
     self.CoordsTimer = self:ScheduleRepeatingTimer("UpdateCoords", 0.05)

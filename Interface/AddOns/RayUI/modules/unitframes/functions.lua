@@ -37,7 +37,7 @@ function UF:Construct_HealthBar(frame, bg, text)
     frame.gradient = health:CreateTexture(nil, "OVERLAY", nil, 1)
     frame.gradient:SetAllPoints(health)
     frame.gradient:SetTexture(R["media"].blank)
-    frame.gradient:SetGradientAlpha("VERTICAL", .2, .2, .2, 0, .25, .25, .25, .6)
+    -- frame.gradient:SetGradientAlpha("VERTICAL", .2, .2, .2, 0, .25, .25, .25, .6)
 
     if self.db.smooth == true then
         health.Smooth = true
@@ -126,7 +126,8 @@ end
 
 function UF:Construct_NameText(frame)
     local name = frame.RaisedElementParent:CreateFontString(nil, "OVERLAY")
-    name:SetFont(R["media"].font, R["media"].fontsize, R["media"].fontflag)
+    name:SetFont(R["media"].font, R["media"].fontsize - 2, R["media"].fontflag)
+    -- name:SetFont(R["media"].font, R["media"].fontsize - 2, "THICKOUTLINE")
     name:Point("BOTTOMLEFT", frame.Health, "BOTTOMLEFT", 8, 3)
     name:SetJustifyH("LEFT")
     name:SetWordWrap(false)
